@@ -11,6 +11,25 @@
     <!-- Mermaid.js -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
+        // 法律依据展开/收起功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const legalBasisContainers = document.querySelectorAll('.legal-basis-container');
+            
+            legalBasisContainers.forEach(container => {
+                const content = container.querySelector('.legal-basis');
+                const btn = container.querySelector('.toggle-btn');
+                const title = container.querySelector('.legal-basis-title');
+                
+                function toggleContent() {
+                    content.classList.toggle('expanded');
+                    btn.classList.toggle('expanded');
+                }
+                
+                btn.addEventListener('click', toggleContent);
+                title.addEventListener('click', toggleContent);
+            });
+        });
+
         // 配置Tailwind主题
         tailwind.config = {
             darkMode: 'class',
@@ -60,6 +79,25 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* 法律依据展开/收起动画 */
+        .legal-basis {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .legal-basis.expanded {
+            max-height: 500px;
+        }
+        
+        .toggle-btn {
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-btn.expanded {
+            transform: rotate(180deg);
+        }
         
         /* 自定义滚动条 */
         ::-webkit-scrollbar {
@@ -424,16 +462,23 @@
                     <h3 class="text-xl font-semibold text-center mb-4">知情权</h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">以合理方式查询、复印管理规约、维修资金使用记录等（需保护他人隐私）</p>
                     
-                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
-                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2">法律依据</h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">《最高人民法院关于审理建筑物区分所有权纠纷案件适用法律若干问题的解释》业主请求公布、查阅下列应当向业主公开的情况和资料的，人民法院应予支持：</p>
-                        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
-                            <li>建筑物及其附属设施的维修资金的筹集、使用情况</li>
-                            <li>管理规约、业主大会议业规则，以及业主大会或业主委员会的决定及会议记录</li>
-                            <li>物业服务合同、共有部分的使用和收益情况</li>
-                            <li>建筑区划内规划用于停放汽车的车位、车库的处分情况</li>
-                            <li>其他应当向业主公开的情况和资料</li>
-                        </ul>
+                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg legal-basis-container">
+                        <div class="flex items-center justify-between cursor-pointer legal-basis-title">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300">法律依据</h4>
+                            <button class="text-primary-600 dark:text-primary-400 focus:outline-none toggle-btn">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="legal-basis mt-2">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">《最高人民法院关于审理建筑物区分所有权纠纷案件适用法律若干问题的解释》业主请求公布、查阅下列应当向业主公开的情况和资料的，人民法院应予支持：</p>
+                            <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
+                                <li>建筑物及其附属设施的维修资金的筹集、使用情况</li>
+                                <li>管理规约、业主大会议业规则，以及业主大会或业主委员会的决定及会议记录</li>
+                                <li>物业服务合同、共有部分的使用和收益情况</li>
+                                <li>建筑区划内规划用于停放汽车的车位、车库的处分情况</li>
+                                <li>其他应当向业主公开的情况和资料</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
@@ -445,18 +490,25 @@
                     <h3 class="text-xl font-semibold text-center mb-4">共同管理权</h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">通过法定程序参与共有部分和重大事务的共同决策。</p>
                     
-                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
-                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2">法律依据</h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">《民法典》第278条：下列事项由业主共同决定：</p>
-                        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
-                            <li>制定和修改业主大会议事规则</li>
-                            <li>制定和修改管理规约</li>
-                            <li>选举业主委员会或者更换业主委员会成员</li>
-                            <li>选聘和解聘物业服务企业或其他管理人</li>
-                            <li>使用或筹集建筑物及其附属设施的维修资金</li>
-                            <li>改建、重建建筑或改变共有部分用途</li>
-                            <li>有关共有和共同管理的其他重大事项</li>
-                        </ul>
+                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg legal-basis-container">
+                        <div class="flex items-center justify-between cursor-pointer legal-basis-title">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300">法律依据</h4>
+                            <button class="text-primary-600 dark:text-primary-400 focus:outline-none toggle-btn">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="legal-basis mt-2">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">《民法典》第278条：下列事项由业主共同决定：</p>
+                            <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
+                                <li>制定和修改业主大会议事规则</li>
+                                <li>制定和修改管理规约</li>
+                                <li>选举业主委员会或者更换业主委员会成员</li>
+                                <li>选聘和解聘物业服务企业或其他管理人</li>
+                                <li>使用或筹集建筑物及其附属设施的维修资金</li>
+                                <li>改建、重建建筑或改变共有部分用途</li>
+                                <li>有关共有和共同管理的其他重大事项</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
@@ -468,11 +520,18 @@
                     <h3 class="text-xl font-semibold text-center mb-4">监督权</h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">监督业委会、物业履职，对侵害行为提起诉讼或投诉，行政机关需依法处理。</p>
                     
-                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
-                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2">法律依据</h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">《民法典》第285条：物业服务企业或其他管理人应接受业主监督，及时答复业主对物业服务情况的询问。</p>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">《民法典》第286条：业主大会或业主委员会对侵害他人民事权益的行为，有权请求行为人停止侵害、赔偿损失。</p>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">《物业管理条例》第6条：业主有权监督业主委员会的工作，监督物业共用部位、设施设备的使用与收益情况。</p>
+                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg legal-basis-container">
+                        <div class="flex items-center justify-between cursor-pointer legal-basis-title">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300">法律依据</h4>
+                            <button class="text-primary-600 dark:text-primary-400 focus:outline-none toggle-btn">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="legal-basis mt-2">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">《民法典》第285条：物业服务企业或其他管理人应接受业主监督，及时答复业主对物业服务情况的询问。</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">《民法典》第286条：业主大会或业主委员会对侵害他人民事权益的行为，有权请求行为人停止侵害、赔偿损失。</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">《物业管理条例》第6条：业主有权监督业主委员会的工作，监督物业共用部位、设施设备的使用与收益情况。</p>
+                        </div>
                     </div>
                 </div>
             </div>
