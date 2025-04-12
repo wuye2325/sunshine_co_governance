@@ -440,9 +440,10 @@
             </div>
             
             <div class="mt-12 max-w-6xl mx-auto bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl border border-primary-100 dark:border-primary-800 mb-6">
-                <p class="text-xl font-medium text-center text-primary-800 dark:text-primary-200">
-                    "家长制业委会的困局根源在于'人治'替代'法治'，其管理模式与《民法典》要求业主集体行使共有权的原则直接冲突。破解之道需走向'阳光共治'，通过信息公开、决策分权及规则约束重构业主集体主导的治理模式。"
-                </p>
+                <div class="space-y-4 text-lg md:text-xl font-medium text-center text-primary-800 dark:text-primary-200">
+                    <p class="leading-relaxed">家长制业委会的困局根源在于'人治'替代'法治'，其管理模式与《民法典》要求业主集体行使共有权的原则直接冲突。</p>
+                    <p class="leading-relaxed">破解之道需走向'阳光共治'，通过信息公开、决策分权及规则约束，重构业主集体主导的治理模式。</p>
+                </div>
             </div>
         </div>
     </section>
@@ -734,12 +735,19 @@
                                         送达即参与、沉默及从众
                                     </h4>
                                     <p class="text-gray-700 dark:text-gray-300 mb-2">在投票过程中，只要将选票送达业主，即使业主未明确表态，也视为参与了投票</p>
-                                    <div class="mt-3 text-sm text-gray-600 dark:text-gray-400">
-                                        <p class="mb-1">法律依据：《民法典》第134条、第140条</p>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li>民事法律行为可以基于双方或者多方的意思表示一致成立，也可以基于单方的意思表示成立。法人、非法人组织依照法律或者章程规定的议事方式和表决程序作出决议的，该决议行为成立。</li>
-                                            <li>行为人可以明示或者默示作出意思表示。沉默只有在有法律规定、当事人约定或者符合当事人之间的交易习惯时，才可以视为意思表示。</li>
-                                        </ul>
+                                    <div class="legal-basis-container">
+                                        <div class="flex items-center justify-between cursor-pointer legal-basis-title">
+                                            <p class="mb-1 text-sm text-gray-600 dark:text-gray-400">法律依据：《民法典》第134条、第140条</p>
+                                            <button class="toggle-btn text-primary-500 dark:text-primary-400 focus:outline-none">
+                                                <i class="fas fa-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                        <div class="legal-basis mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                            <ul class="list-disc list-inside space-y-1">
+                                                <li>民事法律行为可以基于双方或者多方的意思表示一致成立，也可以基于单方的意思表示成立。法人、非法人组织依照法律或者章程规定的议事方式和表决程序作出决议的，该决议行为成立。</li>
+                                                <li>行为人可以明示或者默示作出意思表示。沉默只有在有法律规定、当事人约定或者符合当事人之间的交易习惯时，才可以视为意思表示。</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
