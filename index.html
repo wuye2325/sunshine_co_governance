@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阳光共治：让小区治理从"家长制"走向"集体决策"</title>
+    <!-- TailwindCSS 通过CDN引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        // 配置Tailwind主题
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 卡片悬停效果 */
+        .hover-card {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark .hover-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.05), 0 10px 10px -5px rgba(255, 255, 255, 0.02);
+        }
+        
+        /* 按钮悬停效果 */
+        .btn-hover {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 淡入动画 */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 懒加载相关样式 */
+        .lazy-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .lazy-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- 主导航 -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-primary-600 dark:text-primary-400 flex items-center">
+                <i class="fas fa-sun mr-2"></i>
+                <span>阳光共治</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#intro" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">简介</a>
+                    <a href="#problems" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">困局</a>
+                    <a href="#solution" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">破局之道</a>
+                    <a href="#implementation" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">实施路径</a>
+                    <a href="#case-study" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">案例</a>
+                </nav>
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-800 shadow-md">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#intro" class="py-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">简介</a>
+                <a href="#problems" class="py-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">困局</a>
+                <a href="#solution" class="py-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">破局之道</a>
+                <a href="#implementation" class="py-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">实施路径</a>
+                <a href="#case-study" class="py-2 text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition-colors">案例</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="relative bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-900 text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 fade-in">破局与共生</h1>
+                <h2 class="text-2xl md:text-3xl font-medium mb-8 fade-in" style="animation-delay: 0.2s;">阳光共治：让小区治理从"家长制"走向"集体决策"</h2>
+                <div class="flex flex-col md:flex-row justify-center gap-4 fade-in" style="animation-delay: 0.4s;">
+                    <a href="#intro" class="btn-hover bg-white text-primary-700 hover:bg-gray-100 px-6 py-3 rounded-lg font-medium shadow-lg">了解更多</a>
+                    <a href="#implementation" class="btn-hover bg-transparent border-2 border-white hover:bg-white/10 px-6 py-3 rounded-lg font-medium">实施方案</a>
+                </div>
+            </div>
+        </div>
+        <!-- 装饰元素 -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-40 h-40 md:w-64 md:h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-60 h-60 md:w-80 md:h-80 bg-white/5 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <!-- 互动提问区域 -->
+    <section id="intro" class="py-16 bg-white dark:bg-gray-800 lazy-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">思考：您会如何选择？</h2>
+            
+            <div class="flex flex-col gap-8 max-w-2xl mx-auto relative">
+                <!-- 提问一 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-md hover-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-utensils text-primary-500 mr-3"></i>
+                        如果你们一家人在餐厅点餐
+                    </h3>
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300">A</div>
+                            </div>
+                            <p>你或者爱人说了算</p>
+                        </div>
+                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300">B</div>
+                            </div>
+                            <p>一家人商量一下，再点餐</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 连接装饰 -->
+                <div class="hidden md:flex justify-center">
+                    <div class="w-0.5 h-64 bg-primary-300 dark:bg-primary-700"></div>
+                </div>
+                
+                <!-- 提问二 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-md hover-card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-building text-primary-500 mr-3"></i>
+                        如果你是刚上任的业委会主任，面对两种选择，你会如何选？
+                    </h3>
+                    <div class="space-y-4 mt-6">
+                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300">A</div>
+                            </div>
+                            <p>延续家长制：1票否决权、矛盾背锅、效率高风险大</p>
+                        </div>
+                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300">B</div>
+                            </div>
+                            <p>推行阳光共治：民主协商、权责分明、成效慢但可持续</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 传统治理的三大困局 -->
+    <section id="problems" class="py-16 bg-gray-50 dark:bg-gray-900 lazy-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">传统治理的三大困局</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- 困局一 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-gavel text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-6">权力垄断与决策专断</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">问题实质</h4>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                少数业主委员垄断知情权与决策权，以"替业主集体做决定"名义绕过业主大会授权，实质剥夺业主共同管理权。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-clipboard-list text-red-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">典型案例</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-red-500 mt-1 mr-2 text-xs"></i>
+                                    <span>以"为业主好"名义直接决定小区事务</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-red-500 mt-1 mr-2 text-xs"></i>
+                                    <span>未经业主大会审议擅自处分共有财产</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">后果</h4>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                决策缺乏透明度，容易滋生腐败及利益寻租空间。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 困局二 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-eye-slash text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-6">业主集体失能与监督失效</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">问题实质</h4>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                业主知情权和参与渠道被压制，导致监督机制名存实亡。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-clipboard-list text-yellow-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">具体表现</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-yellow-500 mt-1 mr-2 text-xs"></i>
+                                    <span>信息不公开：家长制业委会不主动公开决策依据</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-yellow-500 mt-1 mr-2 text-xs"></i>
+                                    <span>监督缺位：业委会内部缺乏有效问责机制</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-yellow-500 mt-1 mr-2 text-xs"></i>
+                                    <span>业主集体瘫痪：长期依赖业委会代行决策，业主失去自主行动能力</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">后果</h4>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                业主对业委会失去控制权，最终可能导致业委会失控。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 困局三 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mb-6 mx-auto transform group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-balance-scale text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-6">法律身份困境与追责困难</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-circle text-purple-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">问题实质</h4>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                业委会法律地位模糊，权责严重失衡。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-clipboard-list text-purple-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">法律盲区</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-purple-500 mt-1 mr-2 text-xs"></i>
+                                    <span>身份困境：业委会并非法人主体</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-purple-500 mt-1 mr-2 text-xs"></i>
+                                    <span>追责困难：业委会成员违法行为难以通过法律直接追究</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-chevron-right text-purple-500 mt-1 mr-2 text-xs"></i>
+                                    <span>薪酬矛盾：公益性与工作高成本之间的矛盾加剧履职负担</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-exclamation-triangle text-purple-500 mr-2"></i>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">后果</h4>
+                            </div>
+                            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                                监管真空导致行业乱象频发，如挪用资金、私签物业合同等问题难以根除。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 max-w-6xl mx-auto bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl border border-primary-100 dark:border-primary-800 mb-6">
+                <p class="text-xl font-medium text-center text-primary-800 dark:text-primary-200">
+                    "家长制业委会的困局根源在于'人治'替代'法治'，其管理模式与《民法典》要求业主集体行使共有权的原则直接冲突。破解之道需走向'阳光共治'，通过信息公开、决策分权及规则约束重构业主集体主导的治理模式。"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 破局之道——"阳光共治" -->
+    <section id="solution" class="py-16 bg-white dark:bg-gray-800 lazy-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">破局之道——"阳光共治"</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">符合立法的真实意思，回归业主集体的权利本质</p>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- 知情权 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-md hover-card">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mb-6 mx-auto">
+                        <i class="fas fa-info-circle text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">知情权</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">以合理方式查询、复印管理规约、维修资金使用记录等（需保护他人隐私）</p>
+                    
+                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2">法律依据</h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">《最高人民法院关于审理建筑物区分所有权纠纷案件适用法律若干问题的解释》业主请求公布、查阅下列应当向业主公开的情况和资料的，人民法院应予支持：</p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
+                            <li>建筑物及其附属设施的维修资金的筹集、使用情况</li>
+                            <li>管理规约、业主大会议业规则，以及业主大会或业主委员会的决定及会议记录</li>
+                            <li>物业服务合同、共有部分的使用和收益情况</li>
+                            <li>建筑区划内规划用于停放汽车的车位、车库的处分情况</li>
+                            <li>其他应当向业主公开的情况和资料</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 共治权 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-md hover-card">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mb-6 mx-auto">
+                        <i class="fas fa-users-cog text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">共同管理权</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">通过法定程序参与共有部分和重大事务的共同决策。</p>
+                    
+                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2">法律依据</h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">《民法典》第278条：下列事项由业主共同决定：</p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
+                            <li>制定和修改业主大会议事规则</li>
+                            <li>制定和修改管理规约</li>
+                            <li>选举业主委员会或者更换业主委员会成员</li>
+                            <li>选聘和解聘物业服务企业或其他管理人</li>
+                            <li>使用或筹集建筑物及其附属设施的维修资金</li>
+                            <li>改建、重建建筑或改变共有部分用途</li>
+                            <li>有关共有和共同管理的其他重大事项</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 监督权 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-md hover-card">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300 mb-6 mx-auto">
+                        <i class="fas fa-eye text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-center mb-4">监督权</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">监督业委会、物业履职，对侵害行为提起诉讼或投诉，行政机关需依法处理。</p>
+                    
+                    <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2">法律依据</h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">《民法典》第285条：物业服务企业或其他管理人应接受业主监督，及时答复业主对物业服务情况的询问。</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">《民法典》第286条：业主大会或业主委员会对侵害他人民事权益的行为，有权请求行为人停止侵害、赔偿损失。</p>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">《物业管理条例》第6条：业主有权监督业主委员会的工作，监督物业共用部位、设施设备的使用与收益情况。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实施路径 -->
+    <section id="implementation" class="py-16 bg-gray-50 dark:bg-gray-900 lazy-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">实施路径</h2>
+            
+            <div class="space-y-8 max-w-6xl mx-auto">
+                <!-- 路径一 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center md:items-start md:w-1/4">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-chart-line text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center md:text-left">公开透明的信息渠道</h3>
+                        </div>
+                        <div class="md:w-3/4">
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">线上平台汇总一切资料，消除信息不对称</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">财务数据、决策过程、执行情况全部公开</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">使用阳光码等系统实时更新信息</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 路径二 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center md:items-start md:w-1/4">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-comments text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center md:text-left">可控顺畅的协商平台</h3>
+                        </div>
+                        <div class="md:w-3/4">
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">选择容量大、功能多、门槛低的线上沟通平台</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">实名提案，业主对自己言论行为负责，理性发言</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">充分沟通可以提高群体凝聚力，形成共识解决多数异议</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 路径三 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center md:items-start md:w-1/4">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-vote-yea text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center md:text-left">高效权威的表决方式</h3>
+                        </div>
+                        <div class="md:w-3/4">
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">线上投票，突破时空环境、极大降低投票成本</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">选择政府官方平台或有区块链存证技术的平台</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">无法造假、无法代操作、高安全性、高私密性</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 路径四 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center md:items-start md:w-1/4">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center md:text-left">中立克制的组织团队</h3>
+                        </div>
+                        <div class="md:w-3/4">
+                            <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">划清边界：职责内不推，职责外不包揽</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">放弃特权：维持中立规避裹挟</span>
+                                </li>
+                                <li class="flex items-start group/item">
+                                    <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-3 transform group-hover/item:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-check text-sm"></i>
+                                    </div>
+                                    <span class="text-gray-700 dark:text-gray-300">规则至上：持续获得多数人能接受的有瑕疵的正义</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 路径五 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center md:items-start md:w-1/4">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-gavel text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center md:text-left">公正平等的规则秩序</h3>
+                        </div>
+                        <div class="md:w-3/4">
+                            <div class="space-y-6">
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2 flex items-center">
+                                        <i class="fas fa-percentage text-primary-500 mr-2"></i>
+                                        5%动议制度
+                                    </h4>
+                                    <p class="text-gray-700 dark:text-gray-300">个性需求上升为共性需求，1户实名提议后，5%业主附议可制作解决方案提交业主大会</p>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2 flex items-center">
+                                        <i class="fas fa-comment-dots text-primary-500 mr-2"></i>
+                                        异议讨论制度
+                                    </h4>
+                                    <p class="text-gray-700 dark:text-gray-300">业主大会的自我纠错机制，1户实名发起异议，20%业主附议升级为业主大会会议</p>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2 flex items-center">
+                                        <i class="fas fa-bolt text-primary-500 mr-2"></i>
+                                        快速咨询制度
+                                    </h4>
+                                    <p class="text-gray-700 dark:text-gray-300">实现所有决策由全体完成，咨询发布在存在半数以上业主的平台方为有效</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 路径六 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card group">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center md:items-start md:w-1/4">
+                            <div class="flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-tachometer-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center md:text-left">提高效率的可选条件</h3>
+                        </div>
+                        <div class="md:w-3/4">
+                            <div class="space-y-6">
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2 flex items-center">
+                                        <i class="fas fa-envelope text-primary-500 mr-2"></i>
+                                        送达即参与、沉默及从众
+                                    </h4>
+                                    <p class="text-gray-700 dark:text-gray-300 mb-2">在投票过程中，只要将选票送达业主，即使业主未明确表态，也视为参与了投票</p>
+                                    <div class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                                        <p class="mb-1">法律依据：《民法典》第134条、第140条</p>
+                                        <ul class="list-disc list-inside space-y-1">
+                                            <li>民事法律行为可以基于双方或者多方的意思表示一致成立，也可以基于单方的意思表示成立。法人、非法人组织依照法律或者章程规定的议事方式和表决程序作出决议的，该决议行为成立。</li>
+                                            <li>行为人可以明示或者默示作出意思表示。沉默只有在有法律规定、当事人约定或者符合当事人之间的交易习惯时，才可以视为意思表示。</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                    <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-2 flex items-center">
+                                        <i class="fas fa-trophy text-primary-500 mr-2"></i>
+                                        贡献榜
+                                    </h4>
+                                    <p class="text-gray-700 dark:text-gray-300">建立贡献积分制度，激发内驱力，让参与者被看见，被激励</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 真实案例 -->
+    <section id="case-study" class="py-16 bg-white dark:bg-gray-800 lazy-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">真实案例：厦门新城际广场一期</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">阳光共治理念的成功实践</p>
+            
+            <div class="flex flex-col gap-12 max-w-6xl mx-auto">
+                <!-- 背景与问题 -->
+                <div class="w-full">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-building text-primary-500 mr-3"></i>
+                        背景与挑战
+                    </h3>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 mb-6">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3">小区基本情况</h4>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fas fa-calendar-alt text-gray-500 mt-1 mr-2"></i>
+                                <span>2016年交房</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-home text-gray-500 mt-1 mr-2"></i>
+                                <span>共720户住宅、13户商铺、383个车位及1所幼儿园</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-expand-alt text-gray-500 mt-1 mr-2"></i>
+                                <span>建筑面积8万多平方</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-money-bill-wave text-gray-500 mt-1 mr-2"></i>
+                                <span>物业费为"2元/㎡（基础服务）+0.4元/㎡（专项维修资金）"</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3">主要问题与挑战</h4>
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-300 mr-3">1</div>
+                                <span>"业委会"污名化</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-300 mr-3">2</div>
+                                <span>信息不全面</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-300 mr-3">3</div>
+                                <span>缺少直接的沟通渠道</span>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-300 mr-3">4</div>
+                                <span>物业服务不理想</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 解决方案与效果 -->
+                <div class="w-full">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-lightbulb text-primary-500 mr-3"></i>
+                        解决方案与效果
+                    </h3>
+                    
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 mb-6">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3">三步解决方案</h4>
+                        <div class="space-y-4">
+                            <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
+                                <h5 class="font-medium flex items-center">
+                                    <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 mr-2">1</span>
+                                    制度设计突破
+                                </h5>
+                                <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                    <li>• 制定《业主大会议事规则》，明确业委会仅作为流程执行者</li>
+                                    <li>• 推行"阳光码"系统，实时公开财务明细</li>
+                                    <li>• 与新物业签订带有履约保证金的严格服务合同</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <img src="images/阳光码.png" alt="阳光码系统" class="w-full h-48 object-cover rounded-lg">
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
+                                <h5 class="font-medium flex items-center">
+                                    <span class="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 mr-2">2</span>
+                                    技术工具落地
+                                </h5>
+                                <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                    <li>• 实名制企业微信群，可容纳5000人，打破信息不对称</li>
+                                    <li>• 通过在线表单，自建流程系统雏形，实现5%提案制度</li>
+                                    <li>• 用家住厦门电子投票系统使业主大会参与率提升至86.63%</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <img src="images/小区共建系统.png" alt="小区共建系统" class="w-full h-48 object-cover rounded-lg">
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-gray-600 p-4 rounded-lg">
+                                <h5 class="font-medium flex items-center">
+                                    <span class="w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center text-amber-600 dark:text-amber-300 mr-2">3</span>
+                                    完善纠偏能力
+                                </h5>
+                                <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                    <li>• 将国务院物业管理条例第十三条「20%业主可以动议」流程化</li>
+                                    <li>• 任何业主可发起异议讨论，并最终召开业主大会会议形成决议</li>
+                                    <li>• 业主委员不配合推动异议讨论，就自动失去委员资格</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 总结性话语卡片 -->
+                    <div class="bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl border border-primary-100 dark:border-primary-800 mb-6">
+                        <p class="text-xl font-medium text-center text-primary-800 dark:text-primary-200">
+                            "让知情权、提议权、决策权、纠偏能力，全部在业主集体手里了"
+                        </p>
+                    </div>
+
+                    <!-- 流程图 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300">阳光共治完整流程</h4>
+                            <button id="toggleFlowchart" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 focus:outline-none">
+                                <span class="expand-text">展开</span>
+                                <span class="collapse-text hidden">收起</span>
+                                <i class="fas fa-chevron-down expand-icon"></i>
+                                <i class="fas fa-chevron-up collapse-icon hidden"></i>
+                            </button>
+                        </div>
+                        <div id="flowchartContainer" class="hidden transition-all duration-300 ease-in-out">
+                            <div class="flex justify-center">
+                                <img src="images/阳光共治流程图.PNG" alt="阳光共治流程图" class="w-full">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3">实际效果数据</h4>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-white dark:bg-gray-600 p-6 rounded-lg text-center hover-card group">
+                                <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2 transform group-hover:scale-110 transition-transform duration-300">1039</div>
+                                <p class="text-lg text-gray-700 dark:text-gray-300">收发文件总数</p>
+                                <div class="mt-4 text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <i class="fas fa-quote-left mr-1"></i>
+                                    2021年7月25日开始履职以来，一共收发了文件1039份，2024年收发文件259份，其中收了151份，发了108份
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-600 p-6 rounded-lg text-center hover-card group">
+                                <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2 transform group-hover:scale-110 transition-transform duration-300">325</div>
+                                <p class="text-lg text-gray-700 dark:text-gray-300">召开会议次数</p>
+                                <div class="mt-4 text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <i class="fas fa-quote-left mr-1"></i>
+                                    从21年到今天为止共计召开了325次会议，今年有43次。事情我们不用决策，就没有什么激烈的讨论要做会议纪要
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-600 p-6 rounded-lg text-center hover-card group">
+                                <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2 transform group-hover:scale-110 transition-transform duration-300">36</div>
+                                <p class="text-lg text-gray-700 dark:text-gray-300">提出议题数量</p>
+                                <div class="mt-4 text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <i class="fas fa-quote-left mr-1"></i>
+                                    业委会帮助业主个体通过这个制度提出了36个议题，其中完成了包括选聘物业、启用地面停车场等12件事
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-600 p-6 rounded-lg text-center hover-card group">
+                                <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2 transform group-hover:scale-110 transition-transform duration-300">162</div>
+                                <p class="text-lg text-gray-700 dark:text-gray-300">快速咨询次数</p>
+                                <div class="mt-4 text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <i class="fas fa-quote-left mr-1"></i>
+                                    快速咨询到今天为止我们一共是进行了162次，今年已经进行了28次，主要是决定业主的提议和物业提交的维修方案
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-600 p-6 rounded-lg text-center hover-card group">
+                                <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2 transform group-hover:scale-110 transition-transform duration-300">34</div>
+                                <p class="text-lg text-gray-700 dark:text-gray-300">履约保证金扣款通知</p>
+                                <div class="mt-4 text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <i class="fas fa-quote-left mr-1"></i>
+                                    截止目前共计发出去34份履约保证金扣款通知，整改成功32份，失败2份
+                                </div>
+                            </div>
+                            <div class="bg-white dark:bg-gray-600 p-6 rounded-lg text-center hover-card group">
+                                <div class="text-4xl font-bold text-primary-600 dark:text-primary-400 mb-2 transform group-hover:scale-110 transition-transform duration-300">432</div>
+                                <p class="text-lg text-gray-700 dark:text-gray-300">物业服务报事次数</p>
+                                <div class="mt-4 text-sm text-gray-500 dark:text-gray-400 italic">
+                                    <i class="fas fa-quote-left mr-1"></i>
+                                    今年物业接收了物业服务相关报事有432次，所有工作日志都在阳光码中更新
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 广泛认同 -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900 lazy-section">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col gap-12 max-w-6xl mx-auto">
+                <!-- 广泛的认同 -->
+                <div class="w-full">
+                    <h3 class="text-2xl font-semibold mb-6">广泛的认同</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3 flex items-center">
+                                <i class="fas fa-users text-primary-500 mr-2"></i>
+                                对于业主的价值
+                            </h4>
+                            <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-start flex-col">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>何威在全网拥有 4 万+粉丝，为全国的热心业主提供了可复制的"阳光共治"方法论</span>
+                                    </div>
+                                    <img src="images/厦门何威.jpeg" alt="厦门何威" class="w-full h-64 object-cover rounded-lg mt-3">
+                                </li>
+                                <li class="flex items-start flex-col">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>公开践行阳光码小区的数量有14个</span>
+                                    </div>
+                                    <img src="images/同路人.png" alt="同路人" class="w-full h-64 object-cover rounded-lg mt-3">
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>大量小区通过其他方式在模仿"阳光码"的方式</span>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 ml-6">例如：成都的世纪金沙小区利用"智慧物业"平台进行模仿</p>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3 flex items-center">
+                                <i class="fas fa-building text-primary-500 mr-2"></i>
+                                对物业的价值
+                            </h4>
+                            <img src="images/嘉信物业.png" alt="嘉信物业分享会" class="w-full h-64 object-cover rounded-lg mb-4">
+                            <p class="text-gray-700 dark:text-gray-300">嘉信公司特邀厦门何威老师--"阳光码"的发起人，亲临武汉，展开一场名为《阳光透明、集体共治，缔造美好环境与幸福生活》的分享会</p>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card">
+                            <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3 flex items-center">
+                                <i class="fas fa-city text-primary-500 mr-2"></i>
+                                对社区的价值
+                            </h4>
+                            <img src="images/江头街道.png" alt="江头街道分享会" class="w-full h-64 object-cover rounded-lg mb-4">
+                            <p class="text-gray-700 dark:text-gray-300">江头街道邀请何威分享交流阳光共治理念，推动社区治理创新</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+       <!-- 未来展望 -->
+       <section id="future" class="py-16 bg-gray-50 dark:bg-gray-900 lazy-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4">未来展望</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">从"人治"到"数治"的进化</p>
+            
+            <div class="flex flex-col gap-12 max-w-6xl mx-auto">
+                <div class="w-full">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover-card mb-6">
+                        <h4 class="font-medium text-primary-700 dark:text-primary-300 mb-3">从"人治"到"数治"的进化</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h5 class="font-medium flex items-center mb-2">
+                                    <i class="fas fa-robot text-primary-500 mr-2"></i>
+                                    自动化治理
+                                </h5>
+                                <p class="text-sm text-gray-700 dark:text-gray-300">流程可视化、自动化、智能化，减少人为干预</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                <h5 class="font-medium flex items-center mb-2">
+                                    <i class="fas fa-seedling text-primary-500 mr-2"></i>
+                                    可持续性设计
+                                </h5>
+                                <p class="text-sm text-gray-700 dark:text-gray-300">贡献榜的优化完善，让参与者被看见，被激励</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary-50 dark:bg-primary-900/30 p-6 rounded-xl border border-primary-100 dark:border-primary-800">
+                        <p class="text-xl font-medium text-center text-primary-800 dark:text-primary-200">
+                            "阳光共治不是否定业委会作用，而是通过规则重塑（法定程序）、技术加持（数字平台）、 党建引领（三方协同）构建新型治理生态，最终实现从"替民做主"到"由民做主"的转型"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 结尾号召 -->
+    <section class="py-16 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-900 text-white lazy-section">
+        <div class="container mx-auto px-4 text-center">
+            <!-- <h2 class="text-3xl font-bold mb-8">开启您的阳光共治之旅</h2>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-12">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl max-w-xs">
+                    <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-id-card text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">永久会员</h3>
+                    <p class="text-white/80">加入阳光共治社区，获取最新资讯与资源</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl max-w-xs">
+                    <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-hands-helping text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">专属顾问</h3>
+                    <p class="text-white/80">一对一指导，解决您小区治理中的实际问题</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl max-w-xs">
+                    <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center text-white mx-auto mb-4">
+                        <i class="fas fa-qrcode text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">实践社群</h3>
+                    <p class="text-white/80">扫码加入"阳光共治实践群"，与同行者交流经验</p>
+                </div>
+            </div> -->
+            
+            <p class="text-xl font-medium italic">"阳光之下无特权，共治之中皆主人"</p>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-sun text-primary-400 text-2xl mr-3"></i>
+                        <span class="text-xl font-bold">阳光共治</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">让小区治理从"家长制"走向"集体决策"</p>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400">作者: [2325]</p>
+                    <p class="text-gray-400">© 2024 阳光共治. 保留所有权利.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 图片放大模态框 -->
+    <div id="imageModal" class="fixed inset-0 bg-black/80 z-50 hidden">
+        <div class="absolute top-4 right-4">
+            <button id="closeModal" class="text-white text-4xl hover:text-gray-300">&times;</button>
+        </div>
+        <div class="flex items-center justify-center h-full">
+            <img id="modalImage" src="" alt="" class="max-w-[90%] max-h-[90vh] object-contain">
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 主题切换
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        // 初始化主题
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDarkScheme.matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        
+        // 主题切换事件
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // 移动端菜单
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 关闭移动端菜单的链接点击事件
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // 懒加载动画
+        const lazySections = document.querySelectorAll('.lazy-section');
+        
+        const lazyLoad = () => {
+            lazySections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.9) {
+                    section.classList.add('visible');
+                }
+            });
+        };
+        
+        // 初始加载
+        window.addEventListener('load', lazyLoad);
+        // 滚动时加载
+        window.addEventListener('scroll', lazyLoad);
+
+        // 图片放大功能
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        // 为所有图片添加点击事件
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                modalImg.src = img.src;
+                modalImg.alt = img.alt;
+            });
+        });
+
+        // 关闭模态框
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        // 点击模态框背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // 按 ESC 键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // 初始化 Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        // 流程图收起/展开功能
+        const toggleFlowchart = document.getElementById('toggleFlowchart');
+        const flowchartContainer = document.getElementById('flowchartContainer');
+        const expandText = toggleFlowchart.querySelector('.expand-text');
+        const collapseText = toggleFlowchart.querySelector('.collapse-text');
+        const expandIcon = toggleFlowchart.querySelector('.expand-icon');
+        const collapseIcon = toggleFlowchart.querySelector('.collapse-icon');
+
+        toggleFlowchart.addEventListener('click', () => {
+            flowchartContainer.classList.toggle('hidden');
+            expandText.classList.toggle('hidden');
+            collapseText.classList.toggle('hidden');
+            expandIcon.classList.toggle('hidden');
+            collapseIcon.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
