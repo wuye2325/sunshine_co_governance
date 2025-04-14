@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阳光共治流程体验</title>
+    <title>阳光共治流程案例</title>
     <!-- TailwindCSS 通过CDN引入 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -40,59 +40,182 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .fade-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s, transform 0.5s;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
     <div id="root"></div>
     
     <script type="text/babel">
-        // 直接内联React组件
-        const ProcessExperience = () => {
+        // 案例步骤数据
+        const caseSteps = [
+          {
+            title: "业主发起议题",
+            content: "2022年5月25日，37#702业主实名提议'将36架空层外空地改造成非机动车停车棚'。当满足39人联名发起则该议题判断为共性问题，依据合同金地物业将制定解决方案与业主大会协商讨论。",
+            action: "业主需要：填写房号、选择是否联名发起、提供意见建议"
+          },
+          {
+            title: "议题成功发起",
+            content: "2022年10月29日，已有超过39名业主参与联名，根据5%动议制度成功发起本议题。业委会函复金地协助制定解决方案后交与业主大会协商。",
+            action: "业委会需要：发送沟通函给物业，要求制定解决方案"
+          },
+          {
+            title: "物业制定方案",
+            content: "2023年3月17日，金地制作了方案及三家报价。经查询相关图纸及咨询相关部门，确认36梯楼栋架空层旁空地该处属于红线内，不属于消防登高面。",
+            action: "物业需要：提供施工方案和三方报价单"
+          },
+          {
+            title: "方案优化",
+            content: "2023年5月31日，金地发来一家第三方公司的新方案：费用为1000元/扇门，但有带广告（合同5年）。",
+            action: "物业需要：持续寻找更优方案并提交业主大会"
+          },
+          {
+            title: "快速咨询",
+            content: "2023年6月8日，收到异议：'5年合同期太长，5年中出现纠纷还要支付8000元，5年后设备所有权也依然属于乙方'。金地针对异议进行回应并提供了详细分析。",
+            action: "业主需要：参与快速咨询，选择外包方案或自建方案"
+          },
+          {
+            title: "快速咨询结果",
+            content: "2023年6月20日，快速咨询结果为'外包方案'。该事项需改建共有区域属于民法典278规定由业主共同决定事项，因此根据议事规则上述事项公示15天后于7月5日召开业主大会会议由专有部分业主表决。",
+            action: "业委会需要：发布业主大会会议启动公告"
+          },
+          {
+            title: "业主大会表决",
+            content: "2023年7月5日至7月7日进行表决。表决方式包括线上（使用'家住厦门'APP）和线下（签署纸制书面意见征求表）两种形式。",
+            action: "业主需要：参与表决，选择同意、反对、从众或弃权"
+          },
+          {
+            title: "表决结果",
+            content: "2023年7月20日，公示期结束，最终结果为：反对44票，赞同43票，从众3票。其中反对票的业主占某梯业主总数的40%，赞同票的业主只占全小区剩余业主总数的1%。议案未通过。",
+            action: "业委会需要：公示表决结果，结束本次议题"
+          },
+          {
+            title: "总结",
+            content: "本次业主大会会议经过就很有趣，37#702业主提议把36外属于全体的空地改非机动车停车场，经过联名发起、制作方案，最终进入表决阶段。表决过程中异议者和关心者来回拉锯反转多次，每次都是差一两票，三次反转后最终才形成决议。",
+            action: "总结：业主参与度高，决策过程充分体现了民主协商的特点"
+          }
+        ];
+
+        const CaseFlow = () => {
+            const [activeStep, setActiveStep] = React.useState(0);
+            const currentStep = caseSteps[activeStep];
+            const isLastStep = activeStep === caseSteps.length - 1;
+            const isFirstStep = activeStep === 0;
+
+            const handleNext = () => {
+                if (activeStep < caseSteps.length - 1) {
+                    setActiveStep(activeStep + 1);
+                }
+            };
+
+            const handleBack = () => {
+                if (activeStep > 0) {
+                    setActiveStep(activeStep - 1);
+                }
+            };
+
+            const handleStepClick = (index) => {
+                setActiveStep(index);
+            };
+
             return (
                 <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
                     <div className="container mx-auto px-4">
-                        <h1 className="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-                            阳光共治流程体验
-                        </h1>
+                        <a href="index.html" className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline mb-6">
+                            <i className="fas fa-arrow-left mr-2"></i>
+                            返回首页
+                        </a>
                         
-                        <div className="max-w-4xl mx-auto">
-                            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8">
-                                <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">
-                                    流程体验说明
-                                </h2>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                    在这里，您可以体验阳光共治的完整流程，包括：
-                                </p>
-                                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
-                                    <li>5%动议制度</li>
-                                    <li>异议讨论制度</li>
-                                    <li>快速咨询制度</li>
-                                    <li>业主大会表决</li>
-                                </ul>
-                            </div>
+                        <h1 className="text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
+                            阳光共治流程案例
+                        </h1>
+                        <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
+                            厦门新城际广场一期实际案例：非机动车停车棚建设议题
+                        </p>
 
-                            <div className="grid md:grid-cols-2 gap-6">
-                                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                                    <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                                        发起动议
-                                    </h3>
-                                    <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                        体验如何发起一个动议，并收集5%业主的附议
-                                    </p>
-                                    <button className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-300">
-                                        开始体验
+                        {/* 步骤指示器 */}
+                        <div className="max-w-4xl mx-auto mb-8 overflow-x-auto">
+                            <div className="flex space-x-2 min-w-max p-2">
+                                {caseSteps.map((step, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleStepClick(index)}
+                                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 whitespace-nowrap
+                                            ${activeStep === index 
+                                                ? 'bg-primary-600 text-white' 
+                                                : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                                            }`}
+                                    >
+                                        {index + 1}. {step.title}
                                     </button>
-                                </div>
+                                ))}
+                            </div>
+                        </div>
 
-                                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                                    <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                                        参与表决
-                                    </h3>
-                                    <p className="text-gray-700 dark:text-gray-300 mb-4">
-                                        体验如何参与业主大会的表决过程
-                                    </p>
-                                    <button className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors duration-300">
-                                        开始体验
+                        {/* 内容卡片 */}
+                        <div className="max-w-4xl mx-auto">
+                            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 transition-all duration-500">
+                                <h2 className="text-2xl font-semibold mb-6 text-primary-600 dark:text-primary-400 flex items-center">
+                                    <div className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center mr-3">
+                                        {activeStep + 1}
+                                    </div>
+                                    {currentStep.title}
+                                </h2>
+                                <p className="text-gray-700 dark:text-gray-300 mb-6">
+                                    {currentStep.content}
+                                </p>
+                                
+                                {!isLastStep ? (
+                                    <div className="bg-primary-50 dark:bg-gray-700 p-4 rounded-lg border-l-4 border-primary-500 mb-6">
+                                        <h4 className="font-medium text-primary-700 dark:text-primary-300 mb-1">
+                                            下一步行动：
+                                        </h4>
+                                        <p className="text-gray-700 dark:text-gray-300">
+                                            {currentStep.action}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg border-l-4 border-green-500 mb-6">
+                                        <p className="text-gray-700 dark:text-gray-300">
+                                            {currentStep.action.replace('总结：', '')}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {/* 导航按钮 */}
+                                <div className="flex justify-between mt-8">
+                                    <button 
+                                        onClick={handleBack}
+                                        disabled={isFirstStep}
+                                        className={`px-4 py-2 rounded-lg font-medium flex items-center
+                                            ${isFirstStep 
+                                                ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+                                                : 'bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
+                                            }`}
+                                    >
+                                        <i className="fas fa-arrow-left mr-2"></i>
+                                        上一步
+                                    </button>
+                                    
+                                    <button 
+                                        onClick={handleNext}
+                                        disabled={isLastStep}
+                                        className={`px-4 py-2 rounded-lg font-medium flex items-center
+                                            ${isLastStep 
+                                                ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+                                                : 'bg-primary-600 text-white hover:bg-primary-700'
+                                            }`}
+                                    >
+                                        下一步
+                                        <i className="fas fa-arrow-right ml-2"></i>
                                     </button>
                                 </div>
                             </div>
@@ -104,7 +227,7 @@
 
         // 渲染React组件
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<ProcessExperience />);
+        root.render(<CaseFlow />);
     </script>
 </body>
 </html> 
