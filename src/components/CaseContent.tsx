@@ -31,7 +31,7 @@ export const caseSteps = [
   },
   {
     title: "快速咨询结果",
-    content: "2023年6月20日，快速咨询结果为'外包方案'。根据议事规则，该事项需要公示15天后召开业主大会会议。",
+    content: "2023年6月20日，快速咨询结果为'外包方案'。该事项需改建共有区域属于民法典278规定由业主共同决定事项，因此根据议事规则上述事项公示15天后于7月5日召开业主大会会议由专有部分业主表决。",
     action: "业委会需要：发布业主大会会议启动公告"
   },
   {
@@ -43,6 +43,11 @@ export const caseSteps = [
     title: "表决结果",
     content: "2023年7月20日，公示期结束，最终结果为：反对44票，赞同43票，从众3票。其中反对票的业主占某梯业主总数的40%，赞同票的业主只占全小区剩余业主总数的1%。议案未通过。",
     action: "业委会需要：公示表决结果，结束本次议题"
+  },
+  {
+    title: "总结",
+    content: "本次业主大会会议经过就很有趣，37#702业主提议把36外属于全体的空地改非机动车停车场，经过联名发起、制作方案，最终进入表决阶段。表决过程中异议者和关心者来回拉锯反转多次，每次都是差一两票，三次反转后最终才形成决议。",
+    action: "总结：业主参与度高，决策过程充分体现了民主协商的特点"
   }
 ];
 
@@ -52,6 +57,7 @@ interface CaseContentProps {
 
 const CaseContent: FC<CaseContentProps> = ({ activeStep }) => {
   const currentStep = caseSteps[activeStep];
+  const isLastStep = activeStep === caseSteps.length - 1;
 
   return (
     <motion.div
@@ -69,19 +75,32 @@ const CaseContent: FC<CaseContentProps> = ({ activeStep }) => {
               {currentStep.content}
             </Typography>
           </Box>
-          <Box sx={{ 
-            p: 2, 
-            bgcolor: 'primary.light',
-            borderRadius: 1,
-            color: 'white'
-          }}>
-            <Typography variant="subtitle1" fontWeight="bold">
-              下一步行动：
-            </Typography>
-            <Typography variant="body2">
-              {currentStep.action}
-            </Typography>
-          </Box>
+          {!isLastStep ? (
+            <Box sx={{ 
+              p: 2, 
+              bgcolor: 'primary.light',
+              borderRadius: 1,
+              color: 'white'
+            }}>
+              <Typography variant="subtitle1" fontWeight="bold">
+                下一步行动：
+              </Typography>
+              <Typography variant="body2">
+                {currentStep.action}
+              </Typography>
+            </Box>
+          ) : (
+            <Box sx={{ 
+              p: 2, 
+              background: 'linear-gradient(135deg, #4CAF50 0%, #81C784 100%)',
+              borderRadius: 1,
+              color: 'white'
+            }}>
+              <Typography variant="body1">
+                {currentStep.action.replace('总结：', '')}
+              </Typography>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </motion.div>
