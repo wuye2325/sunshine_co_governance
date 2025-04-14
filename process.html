@@ -141,34 +141,35 @@
                             厦门新城际广场一期实际案例：非机动车停车棚建设议题
                         </p>
 
-                        {/* 步骤指示器 */}
-                        <div className="max-w-4xl mx-auto mb-8 overflow-x-auto">
-                            <div className="flex space-x-2 min-w-max p-2">
-                                {caseSteps.map((step, index) => (
+                        {/* 步骤数字指示器 - 更适合移动端 */}
+                        <div className="max-w-4xl mx-auto mb-8">
+                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-9 gap-2">
+                                {caseSteps.map((_, index) => (
                                     <button
                                         key={index}
                                         onClick={() => handleStepClick(index)}
-                                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 whitespace-nowrap
+                                        className={`w-full py-2 rounded-lg text-sm font-medium transition-colors duration-200
                                             ${activeStep === index 
                                                 ? 'bg-primary-600 text-white' 
                                                 : 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                                             }`}
                                     >
-                                        {index + 1}. {step.title}
+                                        {index + 1}
                                     </button>
                                 ))}
                             </div>
                         </div>
 
+                        {/* 当前步骤标题 */}
+                        <div className="max-w-4xl mx-auto mb-4">
+                            <h3 className="text-xl font-semibold text-center text-primary-600 dark:text-primary-400">
+                                {activeStep + 1}. {currentStep.title}
+                            </h3>
+                        </div>
+
                         {/* 内容卡片 */}
                         <div className="max-w-4xl mx-auto">
-                            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 transition-all duration-500">
-                                <h2 className="text-2xl font-semibold mb-6 text-primary-600 dark:text-primary-400 flex items-center">
-                                    <div className="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center mr-3">
-                                        {activeStep + 1}
-                                    </div>
-                                    {currentStep.title}
-                                </h2>
+                            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 transition-all duration-500">
                                 <p className="text-gray-700 dark:text-gray-300 mb-6">
                                     {currentStep.content}
                                 </p>
