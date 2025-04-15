@@ -3,50 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>事件报道</title>
+    <title>事件时间线</title>
     <!-- Vue 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 自定义配置 -->
-    <script>
-        tailwind.config = {
-            darkMode: 'media',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2C3E50'
-                    }
-                }
-            }
+    <!-- 自定义样式 -->
+    <style>
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #34495E;
+            --accent: #3498DB;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --bg-color: #ffffff;
+            --bg-secondary: #f5f5f5;
         }
-    </script>
+
+        :root.dark {
+            --primary-color: #4a90e2;
+            --secondary-color: #34495E;
+            --accent: #3498DB;
+            --text-primary: #ECF0F1;
+            --text-secondary: #95A5A6;
+            --bg-color: #1A1A1A;
+            --bg-secondary: #2D2D2D;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .timeline-item {
+            transition: transform 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: scale(1.02);
+        }
+    </style>
 </head>
 <body>
-    <div id="app"></div>
-    <script type="module">
-        // 获取事件ID
-        const eventId = new URLSearchParams(window.location.search).get('id');
-        
-        // 创建Vue应用
-        const { createApp, ref, onMounted } = Vue;
-        
-        createApp({
+    <div id="app" class="min-h-screen">
+        <!-- 主题切换按钮 -->
+        <theme-toggle></theme-toggle>
+
+        <!-- 加载状态 -->
+        <div v-if="!eventData" class="flex items-center justify-center min-h-screen">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--primary-color)] mx-auto mb-4"></div>
+                <p class="text-lg">加载中...</p>
+            </div>
+        </div>
+
+        <!-- 内容区域 -->
+        <template v-else>
+            <event-header 
+                :title="eventData.meta.title"
+                :subtitle="eventData.meta.subtitle"
+                :publish-time="eventData.meta.publishTime">
+            </event-header>
+
+            <event-overview 
+                :content="eventData.content.overview">
+            </event-overview>
+
+            <event-timeline 
+                :items="eventData.content.timeline">
+            </event-timeline>
+
+            <debate-section
+                :official="eventData.content.debate.official"
+                :public="eventData.content.debate.public">
+            </debate-section>
+
+            <evidence-section
+                :items="eventData.content.evidences">
+            </evidence-section>
+        </template>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+        const app = createApp({
             setup() {
                 const eventData = ref(null);
-                
-                onMounted(async () => {
-                    if (eventId) {
-                        const response = await fetch(`/data/${eventId}.json`);
-                        eventData.value = await response.json();
-                    }
-                });
-                
+
+                // 获取事件ID
+                const urlParams = new URLSearchParams(window.location.search);
+                const eventId = urlParams.get('id') || 'event01';
+
+                // 加载事件数据
+                fetch(`../data/${eventId}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        eventData.value = data;
+                    })
+                    .catch(error => {
+                        console.error('加载数据失败:', error);
+                    });
+
                 return {
                     eventData
-                }
+                };
             }
-        }).mount('#app');
+        });
+
+        // 注册组件
+        const registerComponent = (name, options) => {
+            app.component(name, options);
+        };
+
+        window.registerComponent = registerComponent;
+    </script>
+
+    <!-- 组件模板 -->
+    <script src="components/ThemeToggle.js"></script>
+    <script src="components/EventHeader.js"></script>
+    <script src="components/EventOverview.js"></script>
+    <script src="components/EventTimeline.js"></script>
+    <script src="components/DebateSection.js"></script>
+    <script src="components/EvidenceSection.js"></script>
+
+    <script>
+        // 在所有组件加载完成后挂载应用
+        app.mount('#app');
     </script>
 </body>
 </html>
