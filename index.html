@@ -238,13 +238,13 @@
                         如果您们一家人在餐厅点餐
                     </h3>
                     <div class="space-y-4 mt-6">
-                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg cursor-pointer option-choice transition-colors duration-300" data-question="1" data-option="A">
+                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg cursor-pointer option-choice transition-colors duration-300 hover:bg-gray-50 dark:hover:bg-gray-500" data-question="1" data-option="A">
                             <div class="flex-shrink-0 mr-4">
                                 <div class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300">A</div>
                             </div>
                             <p>您或者爱人说了算</p>
                         </div>
-                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg cursor-pointer option-choice transition-colors duration-300" data-question="1" data-option="B">
+                        <div class="flex items-start p-3 bg-white dark:bg-gray-600 rounded-lg cursor-pointer option-choice transition-colors duration-300 hover:bg-gray-50 dark:hover:bg-gray-500" data-question="1" data-option="B">
                             <div class="flex-shrink-0 mr-4">
                                 <div class="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300">B</div>
                             </div>
@@ -1344,11 +1344,11 @@
                     
                     // 移除同一问题其他选项的选中状态
                     questionOptions.forEach(opt => {
-                        opt.classList.remove('bg-primary-50', 'dark:bg-primary-900/50');
+                        opt.classList.remove('bg-primary-50', 'dark:bg-primary-900/50', 'border-primary-500', 'dark:border-primary-400', 'border-2');
                     });
                     
                     // 为当前选项添加选中状态
-                    this.classList.add('bg-primary-50', 'dark:bg-primary-900/50');
+                    this.classList.add('bg-primary-50', 'dark:bg-primary-900/50', 'border-primary-500', 'dark:border-primary-400', 'border-2');
                 });
             });
         });
