@@ -1,0 +1,8 @@
+{
+  "name": "web_event_timelines",
+  "version": "1.0.0",
+  "description": "事件报道网页模板",
+  "scripts": {
+    "serve": "python3 -m http.server 3000"
+  }
+}

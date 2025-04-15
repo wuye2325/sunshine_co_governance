@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件报道</title>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2C3E50'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module">
+        // 获取事件ID
+        const eventId = new URLSearchParams(window.location.search).get('id');
+        
+        // 创建Vue应用
+        const { createApp, ref, onMounted } = Vue;
+        
+        createApp({
+            setup() {
+                const eventData = ref(null);
+                
+                onMounted(async () => {
+                    if (eventId) {
+                        const response = await fetch(`/data/${eventId}.json`);
+                        eventData.value = await response.json();
+                    }
+                });
+                
+                return {
+                    eventData
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
