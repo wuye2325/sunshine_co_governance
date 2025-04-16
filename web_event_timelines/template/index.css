@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add custom base styles or component styles here if needed */
+
+/* Font overrides removed, Tailwind defaults will be used */
+
+/* Add styles from ref/podcast-incident-page/src/index.css if needed */
+/* For example, smooth scrolling */
+html {
+  scroll-behavior: smooth;
+} 

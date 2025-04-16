@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义样式 */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Serif SC', serif;
+}
+
+/* 时间线样式 */
+.timeline-container {
+  position: relative;
+}
+
+.timeline-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: #e5e7eb;
+  transform: translateX(-50%);
+}
+
+/* 卡片悬停效果 */
+.case-card, .quote-card {
+  transition: all 0.3s ease;
+}
+
+.case-card:hover, .quote-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 装饰样式 */
+.podcast-logo {
+  background-image: url('/images/podcast-pattern.png');
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .timeline-container:before {
+    left: 20px;
+  }
+
+  .timeline-item {
+    flex-direction: column !important;
+  }
+
+  .timeline-item > div {
+    width: 100% !important;
+    text-align: left !important;
+    padding-left: 40px !important;
+    padding-right: 0 !important;
+  }
+
+  .timeline-center {
+    position: absolute;
+    left: 0;
+    width: 40px !important;
+  }
+}

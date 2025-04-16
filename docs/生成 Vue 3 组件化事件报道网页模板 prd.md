@@ -7,26 +7,32 @@
 
 ### **一、技术栈与项目结构**  
 1. **技术栈要求**  
-   - 使用 **Vue 3 + TypeScript**，搭配组合式 API（`setup` + `ref/reactive`）实现响应式数据管理。  
-   - 基础样式集成 **Tailwind CSS 3.0+（CDN引入）**，结合原生 CSS 实现现代简约风格，通过 `<style scoped>` 避免样式污染。  
-   - 实现 **深色/浅色模式切换**（默认跟随系统设置），使用 CSS 变量管理主题色。  
+   - 使用 **Vue 3 + TypeScript**，搭配组合式 API（`setup` + `ref/reactive`）实现响应式数据管理
+   - 使用 **Vite** 作为构建工具，支持快速开发和高效构建
+   - 基础样式集成 **Tailwind CSS**，结合原生 CSS 实现现代简约风格
+   - 实现 **深色/浅色模式切换**（默认跟随系统设置）
+   - 使用 TypeScript 进行类型检查和开发支持
 
 2. **项目结构**  
    ```
-   src/
-   ├── components/          # 组件目录
-   │   ├── EventHeader.vue   # 标题区组件
-   │   ├── EventOverview.vue # 事件概述组件
-   │   ├── EventTimeline.vue # 时间线组件
-   │   └── DebateSection.vue # 争议焦点组件
-   ├── types/               # 类型定义
-   │   └── event.d.ts        # 事件数据接口定义
-   └── App.vue               # 主组件
+   web_event_timelines/
+   ├── template/              # 单页模板
+   │   ├── index.html        # 模板页面
+   │   └── components/       # Vue组件
+   ├── types/                # 类型定义
+   │   └── event.d.ts       # 事件数据接口定义
+   ├── data/                 # 事件数据目录
+   │   ├── event01.json     # 事件1数据
+   │   └── event02.json     # 事件2数据
+   ├── vite.config.ts       # Vite配置
+   ├── tsconfig.json        # TypeScript配置
+   ├── package.json         # 项目依赖
+   └── index.html           # 事件列表页
    ```
 
 
 ### **二、组件化架构与数据驱动**  
-#### **1. 核心组件列表（单文件组件 .vue）**  
+#### **1. 核心组件列表（Vue单文件组件）**  
 | 组件名          | 功能描述                                                                 | 可替换字段标记（需添加 `data-field` 属性）          |  
 |-----------------|--------------------------------------------------------------------------|---------------------------------------------------|  
 | `EventHeader`   | 包含主标题、副标题、发布时间                                             | 标题（`data-field="title"`）、副标题（`data-field="subtitle"`）、时间（`data-field="publish-time"`） |  
@@ -64,8 +70,8 @@ interface EvidenceItem {
 ```
 
 #### **3. 组件通信**  
-- 父组件通过 `props` 向子组件传递 `EventData` 类型数据，子组件禁止直接操作 DOM，所有内容通过数据驱动渲染。  
-- 可替换字段必须通过 `data-field` 属性标记，值与接口字段名称一致（如标题对应 `data-field="title"`）。  
+- 父组件通过 `props` 向子组件传递 `EventData` 类型数据，子组件禁止直接操作 DOM，所有内容通过数据驱动渲染
+- 可替换字段必须通过 `data-field` 属性标记，值与接口字段名称一致（如标题对应 `data-field="title"`）
 
 
 ### **三、样式与交互规范**  
@@ -73,45 +79,59 @@ interface EvidenceItem {
 - **配色**：  
   - 主色：#2C3E50（深蓝，用于标题和交互元素）  
   - 中性色：#333（正文）、#f5f5f5（浅灰背景）、#ffffff（白色背景）  
-  - 深色模式：通过 `@media (prefers-color-scheme: dark)` 自动切换，主体文字为 #f5f5f5，背景为 #2d2d2d。  
+  - 深色模式：通过 `@media (prefers-color-scheme: dark)` 自动切换，主体文字为 #f5f5f5，背景为 #2d2d2d
 - **排版**：  
-  - 标题层级：H1（24px，加粗）、H2（20px，加粗）、正文（16px，行高 1.6）。  
-  - 响应式字体：使用 `clamp()` 动态调整字号（如 `font-size: clamp(14px, 2vw, 16px)`）。  
+  - 标题层级：H1（24px，加粗）、H2（20px，加粗）、正文（16px，行高 1.6）
+  - 响应式字体：使用 `clamp()` 动态调整字号（如 `font-size: clamp(14px, 2vw, 16px)`）
 
 #### **2. 交互与动画**  
 - **微交互**：  
-  - 按钮悬停：`scale(1.02)` + 主色透明度变化（`opacity: 0.9`），过渡时间 0.3s。  
-  - 卡片悬停：添加 `shadow-md`（Tailwind 类），边框颜色渐变为主色。  
-- **加载动画**：内容区块使用 `v-if` + `<transition>` 实现淡入动画（`opacity: 0` → `opacity: 1`，时长 500ms）。  
+  - 按钮悬停：`scale(1.02)` + 主色透明度变化（`opacity: 0.9`），过渡时间 0.3s
+  - 卡片悬停：添加 `shadow-md`（Tailwind 类），边框颜色渐变为主色
+- **加载动画**：内容区块使用 `v-if` + `<transition>` 实现淡入动画（`opacity: 0` → `opacity: 1`，时长 500ms）
 
 #### **3. 响应式布局**  
-- PC端：内容区最大宽度 1200px，居中 `margin: 0 auto`，争议焦点分两栏（`flex-1`）。  
+- PC端：内容区最大宽度 1200px，居中 `margin: 0 auto`，争议焦点分两栏（`flex-1`）
 - 移动端（`max-width: 768px`）：  
-  - 分栏模块转为单栏，`padding: 1rem`。  
-  - 时间线日期显示为块级元素，居左对齐。  
+  - 分栏模块转为单栏，`padding: 1rem`
+  - 时间线日期显示为块级元素，居左对齐
 
 
-### **四、关键实现细节**  
-1. **可替换字段标记**  
-   - 所有文本、图片、链接等可编辑内容必须添加 `data-field` 属性，值为接口中定义的字段名（如 `<h1 data-field="title">{{ eventData.meta.title }}</h1>`）。  
-   - 图片组件通过 `:src="item.content"` 动态加载，同时保留 `data-field="evidence-image"` 标记。  
+### **四、构建与部署**
+1. **开发环境**
+   - Node.js 16+
+   - npm 或 yarn
+   - VS Code + Vue 3插件
 
-2. **主题切换**  
-   - 引入 Tailwind CSS 的 `dark mode` 插件，通过 `<button @click="toggleTheme">` 切换系统默认主题，使用 `localStorage` 持久化存储用户选择。  
+2. **构建工具**
+   - Vite作为构建工具
+   - TypeScript支持
+   - 热更新开发服务器
 
-3. **性能优化**  
-   - 长列表（如时间线）使用 `v-for` 配合 `:key="item.date"`，避免动态更新时的性能损耗。  
-   - 图片使用 `loading="lazy"` 属性实现懒加载，非关键资源异步加载。  
+3. **部署方案**
+   - 构建输出：`dist`目录
+   - 静态文件托管：Cloudflare Pages
+   - 自动化部署：GitHub集成
+
+4. **性能优化**
+   - 组件懒加载
+   - 图片优化
+   - 代码分割
+   - 缓存策略
 
 
 ### **五、输出要求**  
 1. **文件结构**  
-   - 主组件 `App.vue` 包含完整页面布局，引入所有子组件并传递 `EventData` 类型数据。  
-   - 每个子组件包含独立的 HTML/CSS/JS，通过 `<script setup lang="ts">` 定义 TypeScript 接口和逻辑。  
+   - 使用Vue 3单文件组件（.vue）
+   - 完整的TypeScript类型定义
+   - 清晰的目录结构
 
 2. **代码规范**  
-   - 使用单文件组件（SFC），CSS 部分添加 `scoped` 属性，优先使用 Tailwind CSS 类名（如 `px-4 py-6`），复杂样式通过 `<style>` 标签补充。  
-   - 代码包含必要注释，说明组件功能、props 定义及 `data-field` 标记用途。  
+   - ESLint + Prettier配置
+   - TypeScript严格模式
+   - 组件命名规范
 
 3. **兼容性**  
-   - 支持现代浏览器（Chrome/Firefox/Safari），通过 Babel 转换 ES6+ 语法，确保 IE 11+ 兼容（可选）。  
+   - 支持现代浏览器
+   - 响应式设计
+   - 深色模式支持
