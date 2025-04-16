@@ -18,9 +18,6 @@ export default defineConfig({
       input: {
         template: resolve(__dirname, 'template/index.html')
       }
-    },
-    assetsDir: 'assets',
-    copyPublicDir: true
-  },
-  publicDir: resolve(__dirname, 'template/images')
+    }
+  }
 }) 
