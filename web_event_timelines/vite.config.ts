@@ -12,7 +12,8 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: 'dist',
+    outDir: '../dist/web_event_timelines',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         template: resolve(__dirname, 'template/index.html')
