@@ -51,10 +51,10 @@
             <!-- Attachments (Images) -->
             <div v-if="item.attachments && item.attachments.length" class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div v-for="(att, attIndex) in item.attachments" :key="attIndex">
-                <a :href="att.url" target="_blank" rel="noopener noreferrer" class="block group/attachment overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+                <div @click="openPreview(att)" class="cursor-pointer group/attachment overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
                   <img :src="att.url" :alt="att.description || '附件图片'" class="object-cover w-full h-24 transition-transform duration-300 ease-in-out group-hover/attachment:scale-105">
                   <p v-if="att.description" class="text-xs text-gray-500 dark:text-gray-400 mt-1 px-1 pb-1 truncate">{{ att.description }}</p>
-                </a>
+                </div>
               </div>
             </div>
             <!-- Links -->
@@ -75,11 +75,21 @@
         </div>
       </div>
     </div>
+
+    <!-- Image Preview -->
+    <ImagePreview
+      :show="previewVisible"
+      :image-url="previewImage?.url || ''"
+      :image-alt="previewImage?.description"
+      @close="closePreview"
+    />
   </section>
 </template>
 
 <script setup lang="ts">
 import type { TimelineItem } from '../types/event';
+import { ref } from 'vue'
+import ImagePreview from './ImagePreview.vue'
 
 // Props definition
 // @ts-ignore // Suppress potential unused variable warning for props in script setup
@@ -99,6 +109,19 @@ const formatTimelineDate = (dateString: string): string => {
     return dateString; // Fallback
   }
 };
+
+const previewVisible = ref(false)
+const previewImage = ref<{ url: string; description?: string } | null>(null)
+
+const openPreview = (image: { url: string; description?: string }) => {
+  previewImage.value = image
+  previewVisible.value = true
+}
+
+const closePreview = () => {
+  previewVisible.value = false
+  previewImage.value = null
+}
 </script>
 
 <style scoped>
