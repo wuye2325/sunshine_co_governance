@@ -36,7 +36,7 @@
                  'timeline-content relative bg-white dark:bg-gray-800/50 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-5 md:w-1/2 transition-all duration-300 ease-in-out',
                  'group-hover:shadow-lg group-hover:border-gray-300 dark:group-hover:border-gray-600',
                  'group-hover:-translate-y-0.5 group-hover:scale-[1.01]',
-                 index % 2 === 0 ? 'md:ml-auto border-r-4 border-blue-500/50 dark:border-blue-400/50' : 'md:mr-auto border-l-4 border-blue-500/50 dark:border-blue-400/50'
+                 index % 2 === 0 ? 'md:ml-auto border-r-4 border-blue-600 dark:border-blue-500' : 'md:mr-auto border-l-4 border-blue-600 dark:border-blue-500'
                ]">
             <div class="flex items-center mb-2">
               <i class="fas fa-info-circle fa-sm mr-2 text-blue-500 dark:text-blue-400 opacity-75"></i>
@@ -125,13 +125,14 @@ const closePreview = () => {
 </script>
 
 <style scoped>
-/* Remove previous scoped styles for timeline line/dots, now handled by Tailwind */
-/* Add any specific overrides if Tailwind isn't sufficient */
-
-/* Ensure prose links inherit color transition */
-/* Temporarily commented out as prose is removed
-.prose a {
-  @apply transition-colors duration-200;
+/* 添加段落样式 */
+:deep(p) {
+  @apply mb-3 last:mb-0;
 }
-*/
+
+:deep(p + p) {
+  @apply mt-3;
+}
+
+/* 移除不需要的样式 */
 </style> 

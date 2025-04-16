@@ -13,13 +13,28 @@
     >
       {{ subtitle }}
     </h2>
-    <p 
-      class="inline-flex items-center justify-center text-sm text-blue-300 dark:text-blue-400"
-      data-field="publish-time"
-    >
-      <i class="far fa-calendar-alt mr-1.5 opacity-75"></i>
-      发布于 {{ formattedPublishTime }}
-    </p>
+    <div class="flex flex-col items-center gap-4">
+      <p 
+        class="inline-flex items-center justify-center text-sm text-blue-300 dark:text-blue-400"
+        data-field="publish-time"
+      >
+        <i class="far fa-calendar-alt mr-1.5 opacity-75"></i>
+        发布于 {{ formattedPublishTime }}
+      </p>
+      <!-- 原文链接按钮 -->
+      <a 
+        v-if="originalLink"
+        :href="originalLink"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-100 
+               rounded-full transition-all duration-200 backdrop-blur-sm border border-blue-400/30 
+               hover:border-blue-400/50 shadow-sm hover:shadow group z-10"
+      >
+        <i class="fas fa-external-link-alt mr-2 text-sm group-hover:translate-x-0.5 transition-transform duration-200"></i>
+        <span>原文链接</span>
+      </a>
+    </div>
   </header>
 </template>
 
@@ -31,6 +46,7 @@ const props = defineProps<{
   title: string;
   subtitle?: string;
   publishTime: string; // Expected format: YYYY-MM-DD
+  originalLink?: string; // 新增原文链接属性
 }>();
 
 // Format the date for display (optional, but good practice)

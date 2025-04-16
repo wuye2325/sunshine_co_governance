@@ -3,6 +3,7 @@ interface EventData {
     title: string; // 主标题（必填，标记 data-field="title"）
     subtitle?: string; // 副标题（标记 data-field="subtitle"）
     publishTime: string; // 发布时间（YYYY-MM-DD，标记 data-field="publish-time"）
+    originalLink?: string; // 原文链接
   };
   content: {
     overview: string; // 事件概述（富文本，标记 data-field="overview"）

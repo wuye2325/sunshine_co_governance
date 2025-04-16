@@ -27,6 +27,7 @@
         :title="eventData.meta.title"
         :subtitle="eventData.meta.subtitle"
         :publishTime="eventData.meta.publishTime"
+        :originalLink="eventData.meta.originalLink"
       />
       
       <EventOverview 
