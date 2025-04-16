@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TimelineItem } from '../types/event.d.ts';
+import type { TimelineItem } from '../types/event';
 
 // Props definition
 const props = defineProps<{ 

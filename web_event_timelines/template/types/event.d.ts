@@ -48,4 +48,5 @@ interface LinkAttachment { // 链接附件接口
   url: string; // 链接地址
 }
 
-export { EventData, TimelineItem, EvidenceItem };
+// Use export type for better compatibility with type-only imports
+export type { EventData, TimelineItem, EvidenceItem, DebateContent, MediaAttachment, LinkAttachment }; 

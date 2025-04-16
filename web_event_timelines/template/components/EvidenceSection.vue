@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EvidenceItem } from '../types/event.d.ts';
+import type { EvidenceItem } from '../types/event';
 
 // Props definition
 const props = defineProps<{ 

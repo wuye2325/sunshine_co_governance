@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EventData } from '../types/event.d.ts';
+import type { EventData } from '../types/event';
 
 // Props definition, expects the 'debate' part of EventData
 const props = defineProps<{ 

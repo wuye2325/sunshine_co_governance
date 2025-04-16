@@ -53,7 +53,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import type { EventData } from '../types/event.d.ts'; // Adjust path if needed
+import type { EventData } from './types/event.d.ts'; // Updated relative path
 
 // --- Component Imports --- 
 import ThemeToggle from './components/ThemeToggle.vue';
