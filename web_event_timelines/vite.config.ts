@@ -4,7 +4,7 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/',
+  base: '/web_event_timelines/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
