@@ -24,22 +24,22 @@
         "attachments": [
           {
             "type": "image",
-            "url": "./images/附件一.png",
+            "url": "./images/attachment1.png",
             "description": "消防登高面确认图"
           },
           {
             "type": "image",
-            "url": "./images/附件二图1.png",
+            "url": "./images/attachment2_1.png",
             "description": "施工方案图1"
           },
           {
             "type": "image",
-            "url": "./images/附件二图2.png",
+            "url": "./images/attachment2_2.png",
             "description": "施工方案图2"
           },
           {
             "type": "image",
-            "url": "./images/附件三.png",
+            "url": "./images/attachment3.png",
             "description": "三方报价单"
           }
         ]
@@ -159,7 +159,7 @@
         "attachments": [
           {
             "type": "image",
-            "url": "./images/附件一.png",
+            "url": "./images/attachment1.png",
             "description": "消防登高面确认图"
           }
         ]
@@ -173,17 +173,17 @@
         "attachments": [
           {
             "type": "image",
-            "url": "./images/附件二图1.png",
+            "url": "./images/attachment2_1.png",
             "description": "施工方案图1"
           },
           {
             "type": "image",
-            "url": "./images/附件二图2.png",
+            "url": "./images/attachment2_2.png",
             "description": "施工方案图2"
           },
           {
             "type": "image",
-            "url": "./images/附件三.png",
+            "url": "./images/attachment3.png",
             "description": "三方报价单"
           }
         ]
