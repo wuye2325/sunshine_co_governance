@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300 ease-in-out">
     <!-- Theme Toggle Button -->
     <ThemeToggle />
 
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Content Area -->
-    <main v-else-if="eventData" class="container mx-auto px-4 py-8 md:py-12">
+    <main v-else-if="eventData" class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 max-w-4xl">
       <!-- Render components with fetched data -->
       <EventHeader 
         :title="eventData.meta.title"
@@ -113,8 +113,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+/* Container max-width is now handled by Tailwind classes */
 /* Add component-specific styles here if needed */
-.container {
-  max-width: 1200px; /* Consistent max-width */
-}
 </style> 

@@ -1,7 +1,7 @@
 <template>
   <button 
     @click="toggleTheme"
-    class="fixed top-4 right-4 z-50 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+    class="fixed bottom-4 right-4 z-50 p-2.5 rounded-lg bg-gray-200/80 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 backdrop-blur-sm hover:bg-gray-300 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-900 focus:ring-indigo-500 transition-all duration-200 ease-in-out transform hover:scale-110"
     aria-label="切换主题模式"
   >
     <i v-if="isDark" class="fas fa-sun w-5 h-5"></i>

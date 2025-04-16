@@ -1,23 +1,24 @@
 <template>
-  <header class="mb-8 md:mb-12 text-center">
+  <header class="mb-10 md:mb-14 text-center bg-gradient-to-b from-blue-600 to-blue-800 dark:from-blue-700 dark:to-blue-900 py-12 px-4 rounded-lg shadow-lg">
     <h1 
-      class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2"
+      class="text-3xl sm:text-4xl font-bold text-white mb-3"
       data-field="title"
     >
       {{ title }}
     </h1>
     <h2 
       v-if="subtitle"
-      class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-4"
+      class="text-lg sm:text-xl text-blue-200 dark:text-blue-300 mb-6 font-medium"
       data-field="subtitle"
     >
       {{ subtitle }}
     </h2>
     <p 
-      class="text-sm text-gray-500 dark:text-gray-500"
+      class="inline-flex items-center justify-center text-sm text-blue-300 dark:text-blue-400"
       data-field="publish-time"
     >
-      发布于: {{ formattedPublishTime }}
+      <i class="far fa-calendar-alt mr-1.5 opacity-75"></i>
+      发布于 {{ formattedPublishTime }}
     </p>
   </header>
 </template>
