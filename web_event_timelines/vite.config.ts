@@ -12,7 +12,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: '../dist/web_event_timelines',
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
