@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 以 Vue3 为技术路线的可视化网页开发提示词
+
+## 任务目标
+基于输入文件内容，开发一个美观、易读的中文可视化网页，要求在 Vue3 技术栈下实现核心信息的可视化呈现，并满足现代前端开发规范。
+
+## 内容要求
+1. **核心信息可视化**  
+   保留原文件核心内容，通过图表、卡片、列表等 Vue 组件实现结构化展示，确保信息层级清晰，重点内容通过视觉突出（如颜色、尺寸、留白）。  
+2. **作者信息区域**  
+   在页面底部固定位置添加作者信息模块，包含：  
+   - 作者姓名: [2325]  
+   - 版权声明：`Copyright © 2025 [2325]. All rights reserved.`  
+
+## 设计风格（参考 Linear App 简约现代风格）
+1. **视觉层次**  
+   使用 Vue 组件构建分层结构（如 `Header`、`MainContent`、`Footer`），通过 `z-index`、阴影（`box-shadow`）和字体层级（`h1`~`h6`）区分内容优先级。  
+2. **配色方案**  
+   采用专业低饱和色系（主色建议 #2D3748 或 #457B9D），通过 TailwindCSS 的 `theme.extend.colors` 定义主题色，确保文本与背景对比度符合 WCAG AA 标准（建议 4.5:1 以上）。  
+
+## 技术规范（Vue3 + TailwindCSS 3.0+）
+1. **技术栈**  
+   - 框架：Vue3（组合式 API + TypeScript 可选）  
+   - 状态管理：Vuex 或 Pinia（推荐 Pinia 轻量级方案）  
+   - CSS：TailwindCSS（通过 PostCSS 配置，CDN 引入适用于快速原型：`<script src="https://cdn.tailwindcss.com"></script>`）  
+   - 图标库：Font Awesome 6+（CDN 引入：`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">`）或 Material Icons  
+
+2. **核心功能实现**  
+   - **深色/浅色模式切换**  
+     - 使用 Vue 响应式状态 `const theme = ref<'light' | 'dark'>('auto')`，默认值读取系统设置 `window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'`  
+     - 通过 `watch` 监听状态变化，更新 `document.documentElement.className`  
+     - 提供切换按钮，绑定 `theme` 状态，支持本地存储（`localStorage.setItem('theme', theme.value)`）  
+   - **代码规范**  
+     - 单文件组件（SFC）结构：`<template>`, `<script setup>`, `<style scoped>`  
+     - 组件命名遵循 PascalCase（如 `InfoCard.vue`、`ThemeToggle.vue`）  
+     - 重要逻辑添加注释，使用 TypeScript 提升类型安全（可选）  
+
+## 响应式设计（Vue3 组件化实现）
+1. **设备适配**  
+   - 使用 TailwindCSS 响应式类（如 `md:grid-cols-2`、`lg:px-20`）实现布局切换  
+   - 移动端优先设计，通过 `@media` 查询适配不同屏幕尺寸（建议最小宽度 320px，最大宽度 1920px）  
+   - 字体大小使用动态值（如 `clamp(14px, 2vw, 18px)`），确保阅读体验  
+
+2. **触控优化**  
+   - 交互元素（按钮、链接）尺寸不小于 44x44px（通过 Tailwind 类 `w-11 h-11 min-w-11` 实现）  
+   - 长列表使用 `vue-virtual-scroller` 优化滚动性能（需安装插件）  
+
+## 媒体与图标
+1. **内容解析**  
+   - Markdown 内容解析：使用 `vue-markdown-it` 组件，支持图片/视频渲染  
+   - 视频嵌入：直接渲染输入文件中的 iframe 代码或使用 Vue 原生视频组件 `<video controls>`  
+
+2. **可视化元素**  
+   - 数据图表：集成 `vue-echarts` 或 `recharts`，通过响应式组件适配屏幕尺寸  
+   - 插图：使用 SVG 图标库（如 Heroicons）或自定义 SVG 组件，确保视网膜屏适配  
+
+## 交互体验（Vue 过渡与动画）
+1. **微交互**  
+   - **按钮悬停**：结合 Tailwind `hover:scale-105 hover:shadow-lg` 与 Vue 事件 `@mouseover` 实现动态效果  
+   - **卡片悬停**：过渡效果通过 `<Transition>` 组件实现，如 `@mouseenter` 时添加 `shadow-xl` 和 `border-2 border-primary`  
+   - **页面加载**：使用 Vue 内置 `<TransitionGroup>` 实现内容淡入动画（`fade-enter-active` 自定义 CSS 类）  
+   - **平滑滚动**：通过 `vue-router` 的 `scrollBehavior` 配置或自定义指令 `v-smooth-scroll` 实现  
+
+2. **性能优化**  
+   - **懒加载**：图片使用 `v-lazy` 指令（需配合 `vue-lazyload` 插件），长列表使用虚拟滚动  
+   - **资源压缩**：构建时启用 Vite 的 `terser` 压缩，Tree-shaking 移除未使用代码  
+   - **HTTP 缓存**：通过 `vue-router` 动态导入组件（`() => import('./components/HeavyComponent.vue')`）  
+
+## 输出要求
+1. **文件结构**  
+   - 提供完整 Vue 单文件组件（.vue），包含依赖声明（如 `package.json` 示例）  
+   - 代码符合 W3C 标准，通过 ESLint + Prettier 格式化（配置文件可选）  
+
+2. **兼容性**  
+   - 支持现代浏览器（Chrome、Firefox、Edge），IE 兼容需额外 polyfill（如 `core-js`）  
+   - 跨设备布局统一，通过浏览器 devtools 测试不同屏幕尺寸表现  
+
+## 开发流程建议
+1. 解析输入文件，提取核心数据结构（如 JSON、Markdown）  
+2. 设计 Vue 组件层级（Header、Content、Footer、ThemeToggle 等）  
+3. 实现响应式布局与状态管理（主题切换、设备检测）  
+4. 开发可视化组件（图表、卡片、列表）  
+5. 集成交互效果与性能优化  
+6. 测试不同设备与浏览器兼容性  
+7. 打包生成生产环境代码（建议使用 Vite 或 Vue CLI）  
+

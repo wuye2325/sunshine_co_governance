@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 ## 设计风格- 整体风格参考Linear App的简约现代设计
 - 使用清晰的视觉层次结构，突出重要内容
