@@ -10,7 +10,7 @@
            class="group relative bg-white dark:bg-gray-800/50 rounded-lg shadow-md border-l-4 border-blue-600 dark:border-blue-500 p-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01]">
            <!-- Removed old background/border, added group, relative, new background, left border, padding, transitions -->
         <h4 class="text-xl font-semibold mb-5 text-blue-800 dark:text-blue-300 flex items-center"> <!-- Increased bottom margin, adjusted dark text color -->
-          <i class="fas fa-gavel mr-2.5 opacity-80"></i>官方/权威回应 <!-- Increased icon margin, slight opacity -->
+          <i class="fas fa-gavel mr-2.5 opacity-80"></i>物业回应 <!-- Increased icon margin, slight opacity -->
         </h4>
         <div class="space-y-5"> <!-- Increased spacing -->
           <div v-for="(item, index) in debate.official" :key="'official-' + index" class="text-sm">
@@ -39,7 +39,7 @@
            class="group relative bg-white dark:bg-gray-800/50 rounded-lg shadow-md border-l-4 border-gray-400 dark:border-gray-500 p-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01]">
            <!-- Removed old background/border, added group, relative, new background, left border (gray), padding, transitions -->
         <h4 class="text-xl font-semibold mb-5 text-gray-800 dark:text-gray-200 flex items-center"> <!-- Increased bottom margin -->
-           <i class="fas fa-users mr-2.5 opacity-80"></i>公众/相关方观点 <!-- Increased icon margin, slight opacity -->
+           <i class="fas fa-users mr-2.5 opacity-80"></i>业主观点 <!-- Increased icon margin, slight opacity -->
         </h4>
         <div class="space-y-5"> <!-- Increased spacing -->
           <div v-for="(item, index) in debate.public" :key="'public-' + index" class="text-sm">

@@ -14,7 +14,7 @@
         "content": "37#702业主发起议题，提议将36架空层外空地改造成非机动车停车棚。需要满足39人联名发起才能判断为共性问题。",
         "links": [
           {
-            "text": "查看收集表单",
+            "text": "收集表单",
             "url": "https://docs.qq.com/form/page/DRmRjUUVPVkFBQlht?nlc=1#/fill"
           }
         ]
@@ -24,9 +24,16 @@
         "time": "2022-10-29",
         "title": "议题成功发起",
         "content": "37#702业主提议‘将36架空层外空地改造成非机动车停车棚’的议题已有超过39名业主参与联名，根据5%动议制度成功发起本议题，函复金地协助制定解决方案后交与业主大会协商。",
+        "attachments": [
+          {
+            "type": "image",
+            "url": "./images/[2022]107.jpeg",
+            "description": "沟通函"
+          }
+        ],
         "links": [
           {
-            "text": "查看沟通函",
+            "text": "沟通函",
             "url": "https://docs.qq.com/doc/DRmpYb3F2ZU5PY0F1?nlc=1"
           }
         ]
@@ -37,7 +44,7 @@
         "content": "收到《金地17号函》得知，关于成功动议的‘将36梯架空层外空地改造成非机动车停车棚事项’，金地已经制作方案及寻得三家报价，如可提供更优方案或渠道，请通过阳光码或联系金地提交，沉默表决后无异议则启动业主大会会议，有异议转为动态表决",
         "links": [
           {
-            "text": "查看沟通函",
+            "text": "沟通函",
             "url": "https://docs.qq.com/doc/DVWJlSXV2UWZkd1VC?nlc=1"
           }
         ],
@@ -61,6 +68,21 @@
             "type": "image",
             "url": "./images/attachment3.png",
             "description": "三方报价单"
+          },
+          {
+            "type": "image",
+            "url": "./images/[2023]017-1.jpeg",
+            "description": "沟通函-1"
+          },
+          {
+            "type": "image",
+            "url": "./images/[2023]017-2.jpeg",
+            "description": "沟通函-2"
+          },
+          {
+            "type": "image",
+            "url": "./images/[2023]017-3.jpeg",
+            "description": "沟通函-3"
           }
         ]
       },
@@ -75,9 +97,26 @@
         "time": "2023-05-31",
         "title": "第三方方案提出",
         "content": "金地提出一家第三方公司（厦门亲邻美家广告有限公司）可以改造，费用为1000元/扇门，但需要带广告，合同期5年。",
+        "attachments": [
+          {
+            "type": "image",
+            "url": "./images/[2023]040.png",
+            "description": "沟通函"
+          },
+          {
+            "type": "image",
+            "url": "./images/near36.png",
+            "description": "位置：靠近36梯那侧"
+          },
+          {
+            "type": "image",
+            "url": "./images/near35.png",
+            "description": "位置：靠近35梯那侧"
+          }
+        ],
         "links": [
           {
-            "text": "查看详细方案",
+            "text": "沟通函",
             "url": "https://docs.qq.com/doc/DRlVVQmNmbkdQYXFT"
           }
         ]
@@ -88,7 +127,7 @@
         "content": "收到业主异议，认为5年合同期过长，且存在合同风险。建议自建方案并出租广告位。",
         "links": [
           {
-            "text": "查看异议详情",
+            "text": "异议详情",
             "url": "https://docs.qq.com/doc/DRk13SkJpZnBUbXpq"
           }
         ]
@@ -97,9 +136,16 @@
         "time": "2023-06-17",
         "title": "物业回应异议",
         "content": "金地回应异议，建议仍采用外包方案，并详细说明原因。",
+        "attachments": [
+          {
+            "type": "image",
+            "url": "./images/[2023]042.png",
+            "description": "沟通函"
+          }
+        ],
         "links": [
           {
-            "text": "查看快速咨询表单",
+            "text": "快速咨询表单",
             "url": "https://docs.qq.com/form/page/DRnNWUGxRZkxGc0VH"
           }
         ]
@@ -108,10 +154,55 @@
         "time": "2023-06-20",
         "title": "快速咨询结果",
         "content": "快速咨询结果为'外包方案'，决定于7月5日召开业主大会会议表决。",
+        "attachments": [
+          {
+            "type": "image",
+            "url": "./images/[2023]054.png",
+            "description": "快速咨询结果"
+          },
+          {
+            "type": "image",
+            "url": "./images/[2023]055.jpeg",
+            "description": "业主大会会议启动公告"
+          }
+        ],
         "links": [
           {
-            "text": "查看咨询结果",
+            "text": "快速咨询结果",
             "url": "https://docs.qq.com/doc/DRm5sSlRSSkZoakVS"
+          }
+        ]
+      },
+      {
+        "time": "2023-07-08",
+        "title": "业主大会会议表决结果公告一",
+        "content": "议题：是否同意启用36架空层外空地用作非机动车停车场并改造区域大门？表决结果：反对。",
+        "links": [
+          {
+            "text": "表决结果公告",
+            "url": "https://docs.qq.com/doc/DRnBJYnVVQlFFTU1m?nlc=1"
+          }
+        ]
+      },
+      {
+        "time": "2023-07-11",
+        "title": "业主大会会议表决结果公告二",
+        "content": "公示期补投对结果产生影响，表决结果更改为：同意，重新公告。",
+        "links": [
+          {
+            "text": "表决结果公告",
+            "url": "https://docs.qq.com/doc/DRkdMSHNheU1kSmly?nlc=1"
+          }
+        ]
+      },
+      {
+        "time": "2023-07-13",
+        "title": "业主大会会议表决结果公告三",
+        "content": "公示期补投对结果产生影响，表决结果更改为：反对。重新公告。",
+        "links": [
+          {
+            "text": "表决结果公告",
+            "url": "https://docs.qq.com/doc/DRnRyZmRDTWpiRnRR?nlc=1"
           }
         ]
       },
@@ -119,6 +210,21 @@
         "time": "2023-07-20",
         "title": "最终表决结果",
         "content": "公示期结束，最终表决结果：反对44票，赞同43票，从众3票。由于反对票占某梯业主总数的40%，提案未获通过。"
+      },
+      {
+        "time": "2023-07-25",
+        "title": "信访收到投诉",
+        "content": "希望能提供是否真的有投票表决证据，因为居住辖区内多年都没有人从来没有在小区内投过票更加不知道有这些事。复函说明。",
+        "links": [
+          {
+            "text": "回复函",
+            "url": "https://docs.qq.com/doc/DRnpqWmVYbmFYa1Fh?nlc=1"
+          },
+          {
+            "text": "信访投诉",
+            "url": "https://docs.qq.com/doc/DRmpaVmpsdVBKb2tH?nlc=1"
+          }
+        ]
       }
     ],
     "debate": {
