@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "npm run copy-static && cd web_event_timelines && npm install && npm run build && npm run copy-vue",
+    "build": "npm install && npm run copy-static && cd web_event_timelines && npm install && npm run build && npm run copy-vue",
     "copy-static": "mkdir -p dist && cp index.html dist/ && cp process.html dist/ && mkdir -p dist/images && cp -r images/* dist/images/",
     "copy-vue": "mkdir -p ../dist/web_event_timelines && cp -r dist/* ../dist/web_event_timelines/ && cp -r data ../dist/web_event_timelines/ && mkdir -p ../dist/web_event_timelines/template/images && cp -r template/images/* ../dist/web_event_timelines/template/images/"
   },
@@ -19,7 +19,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue": "^5.0.0",
     "path": "^0.12.7",
     "vue": "^3.4.0"
   }
