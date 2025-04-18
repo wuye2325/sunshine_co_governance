@@ -16,9 +16,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        template: resolve(__dirname, 'template/index.html'),
-        main: resolve(__dirname, '../index.html'),
-        process: resolve(__dirname, '../process.html')
+        template: resolve(__dirname, 'template/index.html')
       }
     },
     assetsDir: 'assets',

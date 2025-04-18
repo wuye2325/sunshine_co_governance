@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "npm install && npm run copy-static && cd web_event_timelines && npm install && npm run build && npm run copy-vue",
-    "copy-static": "mkdir -p dist && cp index.html dist/ && cp process.html dist/ && mkdir -p dist/images && cp -r images/* dist/images/",
-    "copy-vue": "mkdir -p ../dist/web_event_timelines && cp -r dist/* ../dist/web_event_timelines/ && cp -r data ../dist/web_event_timelines/ && mkdir -p ../dist/web_event_timelines/template/images && cp -r template/images/* ../dist/web_event_timelines/template/images/"
+    "build": "cd web_event_timelines && npm install && npm run build && cd .. && npm run copy-all",
+    "copy-all": "mkdir -p dist && cp index.html dist/ && cp process.html dist/ && mkdir -p dist/images && cp -r images/* dist/images/ && mkdir -p dist/web_event_timelines && cp -r web_event_timelines/dist/* dist/web_event_timelines/ && cp -r web_event_timelines/data dist/web_event_timelines/ && mkdir -p dist/web_event_timelines/template/images && cp -r web_event_timelines/template/images/* dist/web_event_timelines/template/images/"
   },
   "devDependencies": {
     "@headlessui/vue": "^1.7.23",
