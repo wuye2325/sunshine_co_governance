@@ -1,4 +1,12 @@
 {
+  "name": "sunshine_co_governance",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run copy-static && cd web_event_timelines && npm install && npm run build && npm run copy-vue",
+    "copy-static": "mkdir -p dist && cp index.html dist/ && cp process.html dist/ && mkdir -p dist/images && cp -r images/* dist/images/",
+    "copy-vue": "mkdir -p ../dist/web_event_timelines && cp -r dist/* ../dist/web_event_timelines/ && cp -r data ../dist/web_event_timelines/ && mkdir -p ../dist/web_event_timelines/template/images && cp -r template/images/* ../dist/web_event_timelines/template/images/"
+  },
   "devDependencies": {
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
@@ -7,10 +15,12 @@
     "pinia": "^3.0.2",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vite": "^5.0.0"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "vue": "^3.4.0"
   }
 }
